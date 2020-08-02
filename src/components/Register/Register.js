@@ -1,6 +1,41 @@
 import React from "react";
 
-export const Register = ({ onRouteChange }) => {
+export const Register = ({ onRouteChange, loadUser }) => {
+    const [name, setName] = React.useState("");
+    const [email, setEmail] = React.useState("");
+    const [password, setPassword] = React.useState("");
+
+    const onNameChange = (event) => {
+        setName(event.target.value);
+    };
+
+    const onEmailChange = (event) => {
+        setEmail(event.target.value);
+    };
+
+    const onPasswordChange = (event) => {
+        setPassword(event.target.value);
+    };
+
+    const onSubmit = () => {
+        fetch("http://localhost:3000/register", {
+            method: "post",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                name: name,
+                email: email,
+                password: password,
+            }),
+        })
+            .then((response) => response.json())
+            .then((user) => {
+                if (user) {
+                    loadUser(user);
+                    onRouteChange("home");
+                }
+            });
+    };
+
     return (
         <article className="br3 ba dark-gray b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
             <main className="pa4 black-80">
@@ -19,6 +54,7 @@ export const Register = ({ onRouteChange }) => {
                                 type="email"
                                 name="name"
                                 id="name"
+                                onChange={(event) => onNameChange(event)}
                             />
                         </div>
                         <div className="mt3">
@@ -33,6 +69,7 @@ export const Register = ({ onRouteChange }) => {
                                 type="email"
                                 name="email-address"
                                 id="email-address"
+                                onChange={(event) => onEmailChange(event)}
                             />
                         </div>
                         <div className="mv3">
@@ -47,6 +84,7 @@ export const Register = ({ onRouteChange }) => {
                                 type="password"
                                 name="password"
                                 id="password"
+                                onChange={(event) => onPasswordChange(event)}
                             />
                         </div>
                     </fieldset>
@@ -55,7 +93,7 @@ export const Register = ({ onRouteChange }) => {
                             className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
                             type="submit"
                             value="Register"
-                            onClick={() => onRouteChange("home")}
+                            onClick={() => onSubmit()}
                         />
                     </div>
                 </div>

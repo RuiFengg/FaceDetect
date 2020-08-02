@@ -1,6 +1,34 @@
 import React from "react";
 
 export const SignIn = ({ onRouteChange }) => {
+    const [email, setEmail] = React.useState("");
+    const [password, setPassword] = React.useState("");
+
+    const onEmailChange = (event) => {
+        setEmail(event.target.value);
+    };
+
+    const onPasswordChange = (event) => {
+        setPassword(event.target.value);
+    };
+
+    const onSubmit = () => {
+        fetch("http://localhost:3000/signin", {
+            method: "post",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                email: email,
+                password: password,
+            }),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data === "success") {
+                    onRouteChange("home");
+                }
+            });
+    };
+
     return (
         <article className="br3 ba dark-gray b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
             <main className="pa4 black-80">
@@ -22,6 +50,7 @@ export const SignIn = ({ onRouteChange }) => {
                                 type="email"
                                 name="email-address"
                                 id="email-address"
+                                onChange={(event) => onEmailChange(event)}
                             />
                         </div>
                         <div className="mv3">
@@ -36,6 +65,7 @@ export const SignIn = ({ onRouteChange }) => {
                                 type="password"
                                 name="password"
                                 id="password"
+                                onChange={(event) => onPasswordChange(event)}
                             />
                         </div>
                     </fieldset>
@@ -44,7 +74,7 @@ export const SignIn = ({ onRouteChange }) => {
                             className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
                             type="submit"
                             value="Sign in"
-                            onClick={() => onRouteChange("home")}
+                            onClick={() => onSubmit()}
                         />
                     </div>
                     <div className="lh-copy mt3">
