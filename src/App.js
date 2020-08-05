@@ -24,7 +24,7 @@ function App() {
   });
 
   React.useEffect(() => {
-    fetch("http://localhost:3000/")
+    fetch("https://blooming-mesa-49900.herokuapp.com")
       .then((response) => response.json())
       .then(console.log);
   }, []);
@@ -82,7 +82,7 @@ function App() {
 
   const onSubmit = () => {
     setImage(input);
-    fetch("http://localhost:3000/imageurl", {
+    fetch("https://blooming-mesa-49900.herokuapp.com/imageurl", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -92,7 +92,7 @@ function App() {
       .then((response) => response.json())
       .then((response) => {
         if (response) {
-          fetch("http://localhost:3000/image", {
+          fetch("https://blooming-mesa-49900.herokuapp.com:3000/image", {
             method: "put",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

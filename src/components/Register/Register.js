@@ -18,7 +18,7 @@ export const Register = ({ onRouteChange, loadUser }) => {
   };
 
   const onSubmit = () => {
-    fetch("http://localhost:3000/register", {
+    fetch("https://blooming-mesa-49900.herokuapp.com/register", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
