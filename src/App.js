@@ -23,11 +23,11 @@ function App() {
     joined: "",
   });
 
-  React.useEffect(() => {
-    fetch("https://blooming-mesa-49900.herokuapp.com")
-      .then((response) => response.json())
-      .then(console.log);
-  }, []);
+  //   React.useEffect(() => {
+  //     fetch("https://blooming-mesa-49900.herokuapp.com")
+  //       .then((response) => response.json())
+  //       .then(console.log);
+  //   }, []);
 
   const loadUser = (data) => {
     console.log(data);
@@ -92,7 +92,7 @@ function App() {
       .then((response) => response.json())
       .then((response) => {
         if (response) {
-          fetch("https://blooming-mesa-49900.herokuapp.com:3000/image", {
+          fetch("https://blooming-mesa-49900.herokuapp.com/image", {
             method: "put",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
